@@ -45,11 +45,26 @@ SMT, NMT, ensembel, penilai tata pahasa
 \end{IEEEkeywords}
 
 \section{Pendahuluan}
-Latar belakang masalah
+
+Penerjemah mesin memiliki banyak digunakan baik oleh individu maupun organisasi. Penerjemah mesin biasanya digunakan untuk membantu memahami dokumen oleh non-pengguna bahasa tersebut, atau digunakan juga sebagai tahap awal penerjemahan dokumen untuk selanjutnya diperbaiki oleh penerjemah profesional.
+
+Salah satu prinsip keamanan yang banyak diperhatikan baik oleh pengguna organisasi maupun individu adalah prinsip ketersediaan. Untuk memenuhi prinsip ini, salah satu hal yang dihindari adalah single point of failure. Untuk memberi ilustrasi ancaman ketersediaan dalam penerjemahan mesin: andaikan penyedia layanan penerjemahan mesin “besar” tersebut mengubah syarat dan ketentuan pemakaian seperti pengumpulan data sementara ketentuan pemakaian tersebut tidak sesuai dengan aturan organisasi (misal: aturan kerahasiaan), maka organisasi tersebut tidak dapat menggunakan layanan penerjemahan mesin tersebut. Karenanya, dalam hal penerjemahan mesin, untuk menjamin ketersediaan, dibutuhkan aplikasi yang tidak bergantung kepada penyedia layanan penerjemahan mesin “besar” yang jumlahnya sedikit.
+
+Tiap-tiap organisasi memiliki domain dokumen-dokumen yang diterjemahkannya sendiri. Karenanya, aplikasi penerjemah yang diberikan haruslah mampu dilatih dengan dokumen dari domain tersebut. Aplikasi penerjemah tersebut harus mampu dilatih dengan sumberdaya yang tersedia pada organisasi/pengguna kecil maupun besar.
+
+Salah satu permasalahan penerjemah mesin state-of-the-art SMT dan NMT adalah terkait sumberdaya yang dibutuhkan, baik ukuran dataset maupun sumberdaya komputasi. SMT dan NMT membutuhkan dataset berukuran besar. Pelatihan NMT dengan data besar membutuhkan waktu yang lama. Sementara, aplikasi yang diajukan harus dapat dilatih baik oleh organisasi/pengguna kecil maupun besar dengan sumberdaya yang tersedia.
+
+Apabila dataset yang diberikan kecil, NMT akan banyak menghasilkan kesalahan sintaktik. Kesalahan sintaktik ini, dengan jumlah cukup besar, seringkali juga menyebabkan kalimat menjadi tidak dapat dipahami. Karenanya, dibutuhkan sebuah aplikasi penerjemah yang mampu memberikan penerjemahan yang lebih baik untuk data latih kecil dan sumberdaya komputasi terbatas.
+
+Aplikasi ini dibatasi kepada penerjemahan satu pasangan bahasa dan satu arah saja. Bahasa yang diajukan adalah Bahasa Indonesia ke Bahasa Inggris.
 
 \section{Penerjemah Mesin berbasis Statistik dan Jaringan Syaraf Tiruan}
 
 \section{Penerjemah Mesin Ensembel}
+
+Sistem penerjemah yang diajukan menggabungkan beberapa SMT dan NMT untuk mengatasi banyaknya kesalahan sintaktik pada terjemahan SMT dan NMT. Setelah dilakukan praproses, akan dibuat beberapa kandidat translasi. Translasi terbaik akan dipilih dengan kandidat dengan sintaktik yang dianggap memiliki nilai tertinggi.
+
+Pemilihan translasi terbaik dilakukan untuk memilih kandidat dengan sintaktik yang dianggap memiliki nilai tertinggi. Dalam penilaian yang digunakan untuk pemilihan translasi terbaik, kandidat dengan kesalahan sedikit diberi skor tinggi dan kandidat dengan banyak kesalahan diberi skor rendah.
 
 \section{Penilai Tata Bahasa}
 
