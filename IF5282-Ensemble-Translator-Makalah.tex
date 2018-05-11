@@ -78,6 +78,12 @@ p(t|s) = \prod_i p(s_i|t_i)p(t_i|t_{i-1})
 
 Pencarian kalimat dengan peluang tertinggi dari model bahasa Markov dapat dilakukan dengan algoritma Viterbi. Pencarian kalimat dengan peluang tertinggi dari model bahasa unigram dapat dilakukan dengan pencarian per kata. Estimasi peluang-peluang untuk model \textit{noise} dan model bahasa dapat dilakukan dari proporsi pada data latih, baik dengan mengasumsikan kata-kata pada data latih sejajar, ataupun dengan \textit{window}.
 
+\section{Penerjemah Mesin berbasis Statistik}
+
+Pada dasarnya, neural machine translation terdiri dari 2 komponen, yaitu encoder dan decoder. Encoder bekerja untuk membaca dan melakukan encoding terhadap kalimat sumber menjadi sebuah vektor. Decoder melakukan translasi vektor yang dihasilkan encoder menuju ke bahasa target. Encoder dan decoder ini umum dilakukan secara sequence to sequence dengan menggunakan arsitektur recurrent neural network. Namun, kelemahan dari sistem ini adalah dibutuhkannya representasi kalimat yang berukuran fix. Hal ini tentu tidak bisa dilakukan mengingat kalimat dalam berbagai bahasa dapat memiliki jumlah kata yang berbeda.
+
+Untuk menangani masalah ini, munculah metode attention. Attention dalam translasi mesin membantu decoder untuk melihat seluruh informasi yang didapatkan dari encoder. Attention ini juga membantu decoder untuk fokus pada bagian atau fitur tertentu ketika melakukan translasi. Attention ini bekerja sebagai sebuah context vector yang ada di antara komponen encoder dan decoder dari sebuah arsitektur neural machine translation.
+
 \section{Penerjemah Mesin Ensembel}
 
 Sistem penerjemah yang diajukan menggabungkan beberapa SMT dan NMT untuk mengatasi banyaknya kesalahan sintaktik pada terjemahan SMT dan NMT. Setelah dilakukan praproses, akan dibuat beberapa kandidat translasi. Translasi terbaik akan dipilih dengan kandidat dengan sintaktik yang dianggap memiliki nilai tertinggi.
@@ -293,6 +299,20 @@ gabungan & because we eat\\
 \end{center}
 \label{tablecontohterjemah}
 \end{table}
+
+\subsection{Eksperimen Neural Machine Translation}
+Pada eksperimen, kami melakukan pembuatan sistem translasi mesin dengan beberapa arsitektur dan tools yang berbeda. Eksperimen dilakukan pada dataset parallel Bahasa Indonesia dan Bahasa Inggris yang terdiri dari 6642 kalimat. Hasil eksperimen untuk setiap arsitektur yang kami buat dapat dilihat pada penjelasan berikut:
+
+1. OpenNMT
+OpenNMT adalah framework deep learning untuk melakukan pemodelan sequence to sequence. Pemodelan dengan OpenNMT ini dilakukan dengan arsitektur 2 layer LSTM dengan hidden layer sebesar 500. Pemodelan dengan arsitektur ini dilakukan dengan 6000 data latih dan 642 data validasi. Hasil pemodelan dengan arsitektur ini tidak memberikan hasil yang baik. Model yang dihasilkan memiliki akurasi yang sangat rendah dan nilai perplexity yang tinggi (200 - 600). Hal ini menyebabkan penggunaan arsitektur pemodelan dengan tools ini tidak dapat digunakan.
+
+2. Keras
+Keras adalah sebuah perangkat yang dapat digunakan untuk melakukan deep learning. Keras menyediakan teknik untuk melakukan encoding (encode_sequences) dan melakukan pemodelan NMT berdasarkan sekuens yang dihasilkan. Model yang dibuat ini merupakan sebuah model Sequential dengan sebuah embedding layer, dua buah LSTM layer, serta RepeatVector diantara kedua layer LSTM. Akan tetapi, model yang dihasilkan oleh Keras untuk translasi bahasa Indonesia - Inggris belum mencapai hasil yang baik. Untuk model yang dilatih dalam jumlah epoch yang kecil, model yang dihasilkan tidak dapat melakukan translasi sama sekali. Untuk model yang dilatih dalam jumlah epoch sebesar 30, model dapat melakukan translasi dengan jumlah kesalahan yang besar. Teknik pemodelan yang sama telah dicoba dengan dataset bahasa Jerman - Inggris dan mampu menghasilkan translasi yang lebih baik. Hal ini menunjukkan bahwa salah satu permasalahan dari pemodelan yang dilakukan adalah kekurangan dataset Bahasa Indonesia - Inggris yang digunakan.
+
+3. Transformer - Attention
+Teknik pemodelan transformer attention ini adalah pemodelan NMT yang tidak melibatkan pelatihan neural network seperti RNN maupun CNN. Teknik pemodelan ini dibuat berdasarkan paper yang dibuat oleh Vaswani, et al. Model attention ini dinyatakan mampu mencapai hasil yang lebih baik dibandingkan dengan teknik pemodelan sequence by sequence yang umum digunakan. Model yang dihasilkan oleh teknik ini mampu memberikan hasil translasi yang lebih baik dibandingkan dengan model-model NMT yang lain. Hal ini disebabkan tidak adanya komponen neural network dan hanya berfokus pada attention saja, sehingga jumlah data yang kecil tidak terlalu masalah.
+
+Hasil eksperimen NMT lengkap dapat dilihat pada laporan teknis yang terlampir.
 
 \section{Kesimpulan dan Saran}
 
