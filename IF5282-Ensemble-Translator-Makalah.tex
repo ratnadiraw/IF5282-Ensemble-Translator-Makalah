@@ -58,7 +58,25 @@ Apabila dataset yang diberikan kecil, NMT akan banyak menghasilkan kesalahan sin
 
 Aplikasi ini dibatasi kepada penerjemahan satu pasangan bahasa dan satu arah saja. Bahasa yang diajukan adalah Bahasa Indonesia ke Bahasa Inggris.
 
-\section{Penerjemah Mesin berbasis Statistik dan Jaringan Syaraf Tiruan}
+\section{Penerjemah Mesin berbasis Statistik}
+
+Penerjemah mesin berbasis statistik mendasarkan keputusan penerjemahannya berdasarkan peluang yang diestimasi dari data latih. Terjemahan yang dicari adalah terjemahan berpeluang paling tinggi berdasarkan kalimat sumber:
+
+\begin{equation}
+\hat{t} = argmax_t p(t|s)
+\end{equation}
+
+Di sini, digunakan penerjemah berbasis statistik berbasis kata:
+\begin{equation}
+p(t|s) = \prod_i p(s_i|t_i)p(t_i)
+\end{equation}
+
+Dapat pula digunakan model bahasa Markov:
+\begin{equation}
+p(t|s) = \prod_i p(s_i|t_i)p(t_i|t_{i-1})
+\end{equation}
+
+Pencarian kalimat dengan peluang tertinggi dari model bahasa Markov dapat dilakukan dengan algoritma Viterbi. Pencarian kalimat dengan peluang tertinggi dari model bahasa unigram dapat dilakukan dengan pencarian per kata. Estimasi peluang-peluang untuk model \textit{noise} dan model bahasa dapat dilakukan dari proporsi pada data latih, baik dengan mengasumsikan kata-kata pada data latih sejajar, ataupun dengan \textit{window}.
 
 \section{Penerjemah Mesin Ensembel}
 
