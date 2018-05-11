@@ -192,7 +192,7 @@ Koefisien korelasi yang didapatkan masih rendah, yaitu paling tinggi sebesar 0.3
 \begin{table}[h]
 \caption{Contoh nilai yang diberikan kepada kalimat yang tidak mirip}
 \begin{center}
-\begin{tabular}{|c|p{4cm}|c|c|}
+\begin{tabular}{|c|p{3.5cm}|c|c|}
 \hline
 \textbf{No}&\textbf{Kalimat}&\textbf{\textit{Error}}&\textbf{Skor yang Diberikan}\\
 \hline
@@ -222,7 +222,7 @@ Yang menjadi perhatian utama adalah bagaimana kinerja penilai tata bahasa terhad
 \begin{table}[h]
 \caption{Contoh nilai yang diberikan kepada kalimat yang mirip}
 \begin{center}
-\begin{tabular}{|c|p{4cm}|c|r|}
+\begin{tabular}{|c|p{3.5cm}|c|r|}
 \hline
 \textbf{No}&\textbf{Kalimat}&\textbf{\textit{Error}}&\textbf{Skor yang Diberikan}\\
 \hline
@@ -246,7 +246,57 @@ Secara umum, kalimat tanpa kesalahan diberikan skor prediksi paling tinggi. Kali
 
 \subsection{Eksperimen Penerjemah}
 
+Data yang digunakan untuk eksperimen berasal dari ALT Parallel Corpus. Diambil 20005 kalimat sebagai data latih dan 7 kalimat untuk data uji. Empat penerjemah basis dilatih terlebih dahulu. Kemudian, keempat penerjemah basis dan penerjemah gabungan diujikan kepada data latih. Hasil pengujian ini tampak pada tabel \ref{tableBLEU}.
+
+\begin{table}
+\caption{Hasil eksperimen penerjemah}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Teknik}&\textbf{BLEU}\\
+\hline
+naive w2w SMT & 0.6028448325695556 \\
+\hline
+naive w2w SMT-windowed & 0.5800545598952107\\
+\hline
+naive w2w SMT-Markov & 0.44074615423331015\\
+\hline
+naive w2w SMT-windowed-Markov & 0.5800545598952107\\
+\hline
+gabungan & \\
+\hline
+\end{tabular}
+\end{center}
+\label{tableBLEU}
+\end{table}
+
+Contoh terjemahan yang dihasilkan oleh penerjemah-penerjemah ini ditunjukkan oleh tabel \ref{tablecontohterjemah}. Terlihat bahwa penerjemah gabungan mampu memilih terjemah terbaik dari kandidat terjemah.
+
+\begin{table}
+\caption{Contoh hasil terjemahan kalimat "Aku mau makan"}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Teknik}&\textbf{Terjemah}\\
+\hline
+naive w2w SMT & I to the \\
+\hline
+naive w2w SMT-windowed & `` to,\\
+\hline
+naive w2w SMT-Markov & because we eat\\
+\hline
+naive w2w SMT-windowed-Markov & `` to,\\
+\hline
+gabungan & because we eat\\
+\hline
+\end{tabular}
+\end{center}
+\label{tablecontohterjemah}
+\end{table}
+
 \section{Kesimpulan dan Saran}
+
+Telah diajukan sebuah sistem penerjemah ensembel bahasa Indonesia ke bahasa Inggris. Penilai tata bahasa yang diberikan mampu membedakan terjemahan yang salah dan terjemahan yang lebih baik secara tata bahasa. Penerjemah gabungan mampu menghasilkan terjemahan yang lebih baik daripada penerjemah basis. Kekurangan dari sistem ini terletak pada penerjemah basis.
 
 \section*{Ucapan Terima Kasih}
 
